@@ -2,7 +2,7 @@ import BankAccount from "../src/BankAccount.js";
 
 describe("Bank Tests:", () => {
 
-    describe("User story 1: ", () => {
+    describe("User Story 1: ", () => {
 
         it("should create a new instance of BankAccount class", () => {
             // Arrange
@@ -104,5 +104,49 @@ describe("Bank Tests:", () => {
             expect(testAccount.getBalance()).toBe(expected);
         });
     });
-    
+
+    describe("User Story 3: ", () => {
+        
+        let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount', 500);
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
+
+        it("should decrease the balance of the account by the amount withdrawn", () => {
+            // Arrange
+            const expected = testAccount.getBalance() - 100;
+            // Act
+            testAccount.withdraw(100);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        })
+
+        it("should not be able to withdraw a negative amount", () => {
+            // Arrange
+            const expected = testAccount.getBalance();
+            // Act
+            testAccount.withdraw(-100);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+
+        it("should decrease the balance properly when multiple withdrawals are made", () => {
+            // Arrange
+            const expected = testAccount.getBalance() - 250;
+            // Act
+            testAccount.withdraw(100);
+            testAccount.withdraw(150);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+
+    })
+
 })
