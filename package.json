@@ -1,0 +1,19 @@
+{
+  "name": "challenge-2-bank-hughpullman",
+  "version": "1.0.0",
+  "description": "Hugh bank challenge",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jasmine",
+    "start": "src/index.js"
+  },
+  "author": "Hugh Pullman",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  }
+}
