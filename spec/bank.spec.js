@@ -51,7 +51,58 @@ describe("Bank Tests:", () => {
             expect(testAccount.getBalance()).toBe(expected);
         });
     });
+
     describe("User Story 2: ", () => {
+
+        let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount');
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
         
-    })
+        it("should increase the balance value by the correct amount when deposit() is called", () => {
+            // Arrange
+            const expected = 100;
+            // Act
+            testAccount.deposit(expected);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+
+        it("should not be able to deposit a negative amount", () => {
+            // Arrange
+            const expected = testAccount.getBalance();
+            // Act
+            testAccount.deposit(-100);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+
+        it("should only be able to deposit a number value", () => {
+            // Arrange
+            const expected = testAccount.getBalance();
+            // Act
+            testAccount.deposit('test')
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+        
+        it("should update the balance correctly for multiple deposits", () => {
+            // Arrange
+            const expected = 250;
+            // Act
+            testAccount.deposit(100);
+            testAccount.deposit(150);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+    });
+    
 })
