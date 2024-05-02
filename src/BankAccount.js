@@ -16,6 +16,7 @@ export default class BankAccount {
     }
 
     withdraw = (amount) => {
+        if (amount > this.#balance) return;
         amount >= 0 ? this.#balance -= amount : '';
     }
 }

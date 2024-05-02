@@ -19,6 +19,10 @@ I want to only be able to withdraw up to the amount I have available in account,
 So that I don't spend more than I have.
 
 5. As a user,
+I want to be able to have all my transactions recorded in order,
+So that I can see changes to my account.
+
+6. As a user,
 I want to be able to print out an account statement,
 So that I can keep track of my account changes.
 
@@ -56,6 +60,14 @@ So that I can keep track of my account changes.
 </br>
 
 **User Story 5**
+| Objects            | Properties                                  | Messages                     | Output |
+|--------------------|---------------------------------------------|------------------------------|--------|
+| BankAccount        | transactions @Array [@trackedTransaction]   |                              | @void  |
+| transactionTracker | date @String , debit @Float , credit @Float | saveTransaction(transaction) | @void  |
+
+</br>
+
+**User Story 6**
 | Objects        | Properties                                         | Messages                   | Output   |
 |----------------|----------------------------------------------------|----------------------------|----------|
 | BankAccount    | balance @float , transactions @array, name @String |                            |          |

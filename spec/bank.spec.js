@@ -147,6 +147,50 @@ describe("Bank Tests:", () => {
             expect(testAccount.getBalance()).toBe(expected);
         });
 
-    })
+    });
+
+    describe("User Story 4: ", () => {
+
+         let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount', 200);
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
+
+        it("doesn't lower balance if user withdrawal amount is more than balance", () => {
+            // Arrange
+            const expected = testAccount.getBalance();
+            // Act
+            testAccount.withdraw(300);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        })
+    });
+
+    describe("User Story 5: ", () => {
+
+         let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount', 200);
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
+
+        it("", () => {
+            // Arrange
+            const expected = testAccount.getBalance();
+            // Act
+            testAccount.withdraw(300);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        })
+    });
 
 })
