@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jasmine",
-    "start": "src/index.js"
+    "start": "node src/index.js"
   },
   "author": "Hugh Pullman",
   "license": "ISC",

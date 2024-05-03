@@ -175,22 +175,79 @@ describe("Bank Tests:", () => {
 
          let testAccount;
         beforeEach(() => {
-            testAccount = new BankAccount('testAccount', 200);
+            testAccount = new BankAccount('testAccount');
         });
 
         afterEach(() => {
             testAccount = undefined;
         });
 
-        it("", () => {
+        it("should contain all previous transactions in the transactions property", () => {
             // Arrange
-            const expected = testAccount.getBalance();
+            let expected = 3;
             // Act
+            testAccount.deposit(1000);
             testAccount.withdraw(300);
+            testAccount.deposit(200);
             // Assert
             // Result
-            expect(testAccount.getBalance()).toBe(expected);
+            expect(testAccount.getTransactions().length).toBe(expected);
+        })
+
+        it("each transaction should have all the correct data", () => {
+            // Arrange
+            // Act
+            testAccount.deposit(1000);
+            // Assert
+            // Result
+            expect(testAccount.getTransactions()[0].getCredit()).toBe(1000);
+            expect(testAccount.getTransactions()[0].getDebit()).toBe(0);
+            expect(testAccount.getTransactions()[0].getCurrentBalance()).toBe(1000);
+        })
+
+        it("should have the data in the order it was input", () => {
+            // Arrange
+            // Act
+            testAccount.deposit(1000);
+            testAccount.withdraw(300);
+            testAccount.deposit(200);
+            // Assert
+            // Result
+            expect(testAccount.getTransactions()[0].getCredit()).toBe(1000);
+            expect(testAccount.getTransactions()[0].getDebit()).toBe(0);
+            expect(testAccount.getTransactions()[0].getCurrentBalance()).toBe(1000);
+
+            expect(testAccount.getTransactions()[1].getCredit()).toBe(0);
+            expect(testAccount.getTransactions()[1].getDebit()).toBe(300);
+            expect(testAccount.getTransactions()[1].getCurrentBalance()).toBe(700);
+
+            expect(testAccount.getTransactions()[2].getCredit()).toBe(200);
+            expect(testAccount.getTransactions()[2].getDebit()).toBe(0);
+            expect(testAccount.getTransactions()[2].getCurrentBalance()).toBe(900);
         })
     });
 
+    describe("User Story 6: ", () => {
+
+         let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount');
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
+
+        it("should print the correct transactions in the order they were input", () => {
+            // Arrange
+            // Act
+            testAccount.deposit(1000);
+            testAccount.withdraw(300);
+            testAccount.deposit(200);
+            testAccount.printStatement();
+            // Assert
+            // Result
+            expect(testAccount.getTransactions().length).toBe(expected);
+        })
+    });
 })

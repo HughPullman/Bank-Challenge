@@ -60,10 +60,10 @@ So that I can keep track of my account changes.
 </br>
 
 **User Story 5**
-| Objects            | Properties                                  | Messages                     | Output |
-|--------------------|---------------------------------------------|------------------------------|--------|
-| BankAccount        | transactions @Array [@trackedTransaction]   |                              | @void  |
-| transactionTracker | date @String , debit @Float , credit @Float | saveTransaction(transaction) | @void  |
+| Objects      | Properties                                  | Messages                    | Output |
+|--------------|---------------------------------------------|-----------------------------|--------|
+| Transactions | transactions @Array [@trackedTransaction]   | addTransaction(transaction) | @void  |
+| Transaction  | date @String , debit @Float , credit @Float |                             | @void  |
 
 </br>
 
