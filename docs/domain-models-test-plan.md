@@ -62,7 +62,7 @@ So that I can keep track of my account changes.
 **User Story 5**
 | Objects      | Properties                                  | Messages                    | Output |
 |--------------|---------------------------------------------|-----------------------------|--------|
-| Transactions | transactions @Array [@trackedTransaction]   | addTransaction(transaction) | @void  |
+| Transactions | transactions @Array [@Transaction]          | addTransaction(transaction) | @void  |
 | Transaction  | date @String , debit @Float , credit @Float |                             | @void  |
 
 </br>

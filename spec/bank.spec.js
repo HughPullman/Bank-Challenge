@@ -229,25 +229,54 @@ describe("Bank Tests:", () => {
 
     describe("User Story 6: ", () => {
 
-         let testAccount;
+        let testAccount;
+        let testDate;
         beforeEach(() => {
             testAccount = new BankAccount('testAccount');
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+
+            today = mm + '/' + dd + '/' + yyyy;
+            testDate = today;
         });
 
         afterEach(() => {
             testAccount = undefined;
+            testDate = undefined;
         });
 
-        it("should print the correct transactions in the order they were input", () => {
+        it("should print the correct transactions to the console when called", () => {
             // Arrange
             // Act
-            testAccount.deposit(1000);
-            testAccount.withdraw(300);
-            testAccount.deposit(200);
+            let logSpy = spyOn(console, "log");
+            testAccount.deposit(2000);
+            testAccount.deposit(500);
+            testAccount.withdraw(800);
             testAccount.printStatement();
             // Assert
             // Result
-            expect(testAccount.getTransactions().length).toBe(expected);
-        })
+            expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 0.00    || 800.00  || 1700.00`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 500.00  || 0.00    || 2500.00`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 2000.00 || 0.00    || 2000.00`);
+        });
+
+        it("should print multiple transactions in reverse order than they were added", () => {
+            // Arrange
+            // Act
+            let logSpy = spyOn(console, "log");
+            testAccount.deposit(1000);
+            testAccount.deposit(300);
+            testAccount.withdraw(700);
+            testAccount.printStatement();
+            // Assert
+            // Result
+            expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 0.00    || 700.00  || 600.00`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 300.00  || 0.00    || 1300.00`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 1000.00 || 0.00    || 1000.00`);
+        });
     });
 })
