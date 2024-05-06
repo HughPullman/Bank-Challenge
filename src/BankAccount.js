@@ -4,9 +4,12 @@ export default class BankAccount {
     #name
     #balance
     #transactions = new Transactions
+    #overdraftAmount = 0
+    #overdraft
 
     constructor(name, balance = 0) {
         this.#name = name;
+        this.#overdraft = false;
         balance >= 0 ? this.#balance = balance : this.#balance = 0;
     }
 
@@ -22,7 +25,7 @@ export default class BankAccount {
     }
 
     withdraw = (amount) => {
-        if (amount > this.#balance) {
+        if (amount > (this.#balance + this.#overdraftAmount)) {
             console.error("You do not have enough funds for this withdrawal");
             return ;
         } 
@@ -31,5 +34,13 @@ export default class BankAccount {
     }
 
     printStatement = () => this.#transactions.printStatement();
+
+    getOverdraft = () => this.#overdraft;
+
+    getOverdraftAmount = () => this.#overdraftAmount;
+
+    setOverdraft = (mode) => this.#overdraft = mode;
+
+    setOverdraftAmount = (amount) => this.#overdraft ? this.#overdraftAmount = amount : console.log("Overdraft is not enabled for this account");
 
 }

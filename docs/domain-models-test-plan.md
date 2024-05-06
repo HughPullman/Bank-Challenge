@@ -80,28 +80,50 @@ So that I can keep track of my account changes.
 
 **User Story 7**
 
-As an air traffic controller,
-I want to ensure that planes cannot land during stormy weather conditions,
-So that I can maintain safety protocols and prevent accidents.
+As a user,
+I want to have my statement print green for credit and positive balances,
+So that I can clearly see them.
 
 **User Story 8**
 
-As an air traffic controller,
-I want to ensure that planes cannot take off during stormy weather conditions,
-To mitigate the risk of accidents and ensure passenger safety.
+As a user,
+I want to have my statement print red for debit and negative balances,
+So that I can clearly see them.
+
+**User Story 9**
+
+As a user,
+I want to have be able to set up an overdraft with a set amount,
+So that I can withdraw more than I have if needed.
+
+**User Story 10**
+
+As a user,
+I want to have be able to withdraw up to my overdraft amount,
+So that I can access more money if I run out.
 
 -----------------------------------------------------------
 
 **Domain Model - User Story 7**
 
-| Objects | Properties        | Messages       | Output   |
-|---------|-------------------|----------------|----------|
-| Airport |                   | checkWeather() | @Boolean |
-| Weather | isStormy @Boolean |                |          |
+| Objects        | Properties                                         | Messages                   | Output   |
+|----------------|----------------------------------------------------|----------------------------|----------|
+| BankAccount    | balance @float , transactions @array, name @String |                            |          |
+| PrintStatement |                                                    | printStatement(@accountId) | @Boolean |
 
-**Domain Model - User Story 7**
+**Domain Model - User Story 8**
 
-| Objects | Properties        | Messages       | Output   |
-|---------|-------------------|----------------|----------|
-| Airport |                   | checkWeather() | @Boolean |
-| Weather | isStormy @Boolean |                |          |
+| Objects        | Properties                                         | Messages                   | Output   |
+|----------------|----------------------------------------------------|----------------------------|----------|
+| BankAccount    | balance @float , transactions @array, name @String |                            |          |
+| PrintStatement |                                                    | printStatement(@accountId) | @Boolean |
+
+**Domain Model - User Story 9**
+| Objects     | Properties                               | Messages                                         | Output |
+|-------------|------------------------------------------|--------------------------------------------------|--------|
+| BankAccount | overdraft @Boolean, overdraftAmount @Int | setOverdraft(@Boolean), setOverdraftAmount(@int) | @Void  |
+
+**Domain Model - User Story 10**
+| Objects     | Properties                           | Messages         | Output  |
+|-------------|--------------------------------------|------------------|---------|
+| BankAccount | balance @float, overdraftAmount @Int | withdraw(@float) | @String |

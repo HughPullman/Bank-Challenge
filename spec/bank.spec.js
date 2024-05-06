@@ -258,9 +258,9 @@ describe("Bank Tests:", () => {
             // Assert
             // Result
             expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
-            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 0.00    || 800.00  || 1700.00`);
-            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 500.00  || 0.00    || 2500.00`);
-            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 2000.00 || 0.00    || 2000.00`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m0.00    \x1b\[0m|| \u001b[31m800.00  \x1b\[0m|| \u001b[32m1700.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m500.00  \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m2500.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m2000.00 \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m2000.00\x1b\[0m`);
         });
 
         it("should print multiple transactions in reverse order than they were added", () => {
@@ -274,9 +274,196 @@ describe("Bank Tests:", () => {
             // Assert
             // Result
             expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
-            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 0.00    || 700.00  || 600.00`);
-            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 300.00  || 0.00    || 1300.00`);
-            expect(logSpy).toHaveBeenCalledWith(`${testDate} || 1000.00 || 0.00    || 1000.00`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m0.00    \x1b\[0m|| \u001b[31m700.00  \x1b\[0m|| \u001b[32m600.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m300.00  \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m1300.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m1000.00 \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m1000.00\x1b\[0m`);
+        });
+    });
+
+    describe("User Story 7: ", () => {
+
+        let testAccount;
+        let testDate;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount');
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+
+            today = mm + '/' + dd + '/' + yyyy;
+            testDate = today;
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+            testDate = undefined;
+        });
+
+        it("should print the positive balance and credit in green", () => {
+            // Arrange
+            // Act
+            let logSpy = spyOn(console, "log");
+            testAccount.deposit(2000);
+            testAccount.deposit(500);
+            testAccount.withdraw(800);
+            testAccount.printStatement();
+            // Assert
+            // Result
+            expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m0.00    \x1b\[0m|| \u001b[31m800.00  \x1b\[0m|| \u001b[32m1700.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m500.00  \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m2500.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m2000.00 \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m2000.00\x1b\[0m`);
+        });
+
+        // it("should print multiple transactions in reverse order than they were added", () => {
+        //     // Arrange
+        //     // Act
+        //     let logSpy = spyOn(console, "log");
+        //     testAccount.deposit(1000);
+        //     testAccount.deposit(300);
+        //     testAccount.withdraw(700);
+        //     testAccount.printStatement();
+        //     // Assert
+        //     // Result
+        //     expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
+        //     expect(logSpy).toHaveBeenCalledWith(`${testDate} || 0.00    || 700.00  || 600.00`);
+        //     expect(logSpy).toHaveBeenCalledWith(`${testDate} || 300.00  || 0.00    || 1300.00`);
+        //     expect(logSpy).toHaveBeenCalledWith(`${testDate} || 1000.00 || 0.00    || 1000.00`);
+        // });
+    });
+
+    describe("User Story 8: ", () => {
+
+        let testAccount;
+        let testDate;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount');
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+
+            today = mm + '/' + dd + '/' + yyyy;
+            testDate = today;
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+            testDate = undefined;
+        });
+
+        it("should print the negative balance and credit in red", () => {
+            // Arrange
+            // Act
+            let logSpy = spyOn(console, "log");
+            testAccount.deposit(2000);
+            testAccount.deposit(500);
+            testAccount.withdraw(800);
+            testAccount.printStatement();
+            // Assert
+            // Result
+            expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m0.00    \x1b\[0m|| \u001b[31m800.00  \x1b\[0m|| \u001b[32m1700.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m500.00  \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m2500.00\x1b\[0m`);
+            expect(logSpy).toHaveBeenCalledWith(`${testDate} || \u001b[32m2000.00 \x1b\[0m|| \u001b[31m0.00    \x1b\[0m|| \u001b[32m2000.00\x1b\[0m`);
+        });
+
+        // it("should print multiple transactions in reverse order than they were added", () => {
+        //     // Arrange
+        //     // Act
+        //     let logSpy = spyOn(console, "log");
+        //     testAccount.deposit(1000);
+        //     testAccount.deposit(300);
+        //     testAccount.withdraw(700);
+        //     testAccount.printStatement();
+        //     // Assert
+        //     // Result
+        //     expect(logSpy).toHaveBeenCalledWith('date       || credit  || debit   || balance');
+        //     expect(logSpy).toHaveBeenCalledWith(`${testDate} || 0.00    || 700.00  || 600.00`);
+        //     expect(logSpy).toHaveBeenCalledWith(`${testDate} || 300.00  || 0.00    || 1300.00`);
+        //     expect(logSpy).toHaveBeenCalledWith(`${testDate} || 1000.00 || 0.00    || 1000.00`);
+        // });
+    });
+
+    describe("User Story 9: ", () => {
+
+        let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount');
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
+
+        it("should allow the overdraft to be set to true", () => {
+            // Arrange
+            let expected = true;
+            // Act
+            testAccount.setOverdraft(true);
+            // Assert
+            // Result
+            expect(testAccount.getOverdraft()).toBe(expected);
+        });
+
+        it("should allow an overdraft amount to be set when overdraft is true", () => {
+            // Arrange
+            let expected = 1000;
+            // Act
+            testAccount.setOverdraft(true);
+            testAccount.setOverdraftAmount(1000)
+            // Assert
+            // Result
+            expect(testAccount.getOverdraftAmount()).toBe(expected);
+        });
+
+        it("should not allow an overdraft amount to be set when overdraft is false", () => {
+            // Arrange
+            let expected = 0;
+            // Act
+            testAccount.setOverdraft(false);
+            testAccount.setOverdraftAmount(1000);
+            // Assert
+            // Result
+            expect(testAccount.getOverdraftAmount()).toBe(expected);
+        });
+    });
+
+    describe("User Story 10: ", () => {
+
+        let testAccount;
+        beforeEach(() => {
+            testAccount = new BankAccount('testAccount');
+        });
+
+        afterEach(() => {
+            testAccount = undefined;
+        });
+
+        it("should allow the user to withdraw up to the overdraft", () => {
+            // Arrange
+            let expected = -800;
+            // Act
+            testAccount.setOverdraft(true);
+            testAccount.setOverdraftAmount(1000);
+            testAccount.withdraw(800);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+
+        it("should not allow more than the overdraft amount to be withdrawn", () => {
+            // Arrange
+            let expected = -500;
+            // Act
+            testAccount.setOverdraft(true);
+            testAccount.setOverdraftAmount(1000)
+            testAccount.withdraw(500);
+            testAccount.withdraw(1500);
+            // Assert
+            // Result
+            expect(testAccount.getBalance()).toBe(expected);
         });
     });
 })

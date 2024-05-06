@@ -12,7 +12,18 @@ export default class Transaction {
     }
 
     print = () => {
-        console.log(`${this.#date} || ` + `${this.#credit.toFixed(2)}`.padEnd(8,' ') + `|| ` + `${this.#debit.toFixed(2)}`.padEnd(8, ' ') + `|| ` + `${this.#currentBalance.toFixed(2)}`);
+        let green = "\u001b[32m";
+        let red = "\u001b[31m";
+        let clear = "\x1b\[0m"
+        let balanceColor;
+        if (this.#currentBalance >= 0) {
+            balanceColor = green + this.#currentBalance.toFixed(2) + clear;
+        } else {
+            balanceColor = red + this.#currentBalance.toFixed(2) + clear;
+        }
+        let credit = green + this.#credit.toFixed(2).padEnd(8,' ') + clear;
+        let debit = red + this.#debit.toFixed(2).padEnd(8, ' ') + clear;
+        console.log(`${this.#date} || ` + `${credit}` + `|| ` + `${debit}` + `|| ` + `${balanceColor}`);
     }
 
     createDate = () => {
